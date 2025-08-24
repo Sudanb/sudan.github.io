@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects & Research — Sudan Baral</title>
   <meta name="color-scheme" content="dark light" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
-    :root{--bg:#0b0c10;--panel:#111317;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);
-          --text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7;--link:#8ab4f8;}
+    :root{--bg:#0b0c10;--panel:#111317;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);--text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7;--link:#8ab4f8}
     html,body{height:100%}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;
-         margin:0;color:var(--text);background:var(--bg);overflow-x:hidden}
-    body::before{content:\"\";position:fixed;inset:-20vmax;z-index:0;background:
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;background:var(--bg);color:var(--text);overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:-20vmax;z-index:0;background:
       radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.12), transparent 60%),
       radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.10), transparent 60%),
       radial-gradient(80vmax 80vmax at 50% 120%, rgba(255,255,255,.06), transparent 60%);
@@ -21,17 +18,17 @@
     #bg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.6}
     header,footer{position:relative;z-index:3;padding:16px}
     .container{max-width:1000px;margin:0 auto;padding:20px;position:relative;z-index:2}
-    nav{margin:12px 0}
+    nav{margin:12px 0;text-align:center;position:sticky;top:0;z-index:4;background:rgba(17,19,23,.7);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
     .btn{display:inline-block;padding:10px 14px;margin:6px;border-radius:10px;border:1px solid var(--border);text-decoration:none;font-weight:700}
     .btn.primary{background:linear-gradient(135deg,var(--brand),color-mix(in oklab,var(--brand) 60%,transparent));color:#0b0c10;border-color:transparent}
     .btn.secondary{background:rgba(255,255,255,.06);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
     .muted{color:var(--muted)}
-    h1,h2{margin:0 0 8px}
   </style>
 </head>
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
+
   <header class="container">
     <nav>
       <a class="btn secondary" href="index.html">About Me</a>
@@ -42,22 +39,26 @@
     <h1>Projects & Research</h1>
     <p class="muted">Selected projects with short descriptions and core tech.</p>
   </header>
+
   <main class="container">
     <section class="card">
       <h2>Autonomous Skid‑Steer Robot for Under‑Canopy Agriculture (2025–Present)</h2>
       <p>Designed and fabricated a skid‑steer robotic platform for row‑crop environments. Modeled vehicle kinematics in MATLAB and integrated ROS2‑based navigation. Developed perception and controls pipelines with multi‑camera/IMU sensing.</p>
       <p class="muted">Keywords: ROS2, MATLAB, IMU, computer vision, navigation</p>
     </section>
+
     <section class="card">
       <h2>Prosthetic Knee via Hybrid Manufacturing (2023–2024)</h2>
       <p>Evaluated manufacturing modes and materials, performed ISO 10328 loading simulations, and conducted static/fatigue testing of prototypes.</p>
       <p class="muted">Keywords: SolidWorks, ANSYS, ISO 10328, testing</p>
     </section>
+
     <section class="card">
       <h2>FSR Embedded Insole for Gait Analysis (2021–2023)</h2>
       <p>Designed and built an insole with FSR sensors for gait phase detection. Implemented ESP‑32 firmware and ML classifiers (Logistic Regression, Decision Tree, SVM). Presented at KU University Scholar Conference.</p>
-      <p class="muted">Keywords: ESP‑32, ML, classification, biomechanics</p>
+      <p class="muted">Keywords: ESP‑32, machine learning, biomechanics</p>
     </section>
+
     <section class="card">
       <h2>Publications</h2>
       <ol>
@@ -66,14 +67,18 @@
       </ol>
     </section>
   </main>
-  <footer class="container"><p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p></footer>
+
+  <footer class="container">
+    <p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p>
+  </footer>
+
   <script>
+    // same particle bg as index
     (function(){const c=document.getElementById('bg');if(!c)return;const x=c.getContext('2d');let w,h,dpr=Math.min(devicePixelRatio||1,2),P=[];
-    function R(a,b){return a+Math.random()*(b-a)};function S(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
-    function I(){P=[];for(let i=0;i<90;i++){P.push({x:R(0,w),y:R(0,h),r:R(.6,2.0)*dpr,vx:R(-.05,.05)*dpr,vy:R(-.03,.03)*dpr})}}
-    function T(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
-      const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(110,231,183,0.10)');g.addColorStop(1,'rgba(110,231,183,0.0)');x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*6,0,Math.PI*2);x.fill();
-      x.fillStyle='rgba(138,180,248,0.10)';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill();}requestAnimationFrame(T)}
-    addEventListener('resize',()=>{S();I()});S();I();T();})();</script>
+      const N=90;function R(a,b){return a+Math.random()*(b-a)}function size(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+      function init(){P=[];for(let i=0;i<N;i++){P.push({x:R(0,w),y:R(0,h),r:R(.6,2)*dpr,vx:R(-.05,.05)*dpr,vy:R(-.03,.03)*dpr})}}function tick(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';
+        for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(110,231,183,0.10)');g.addColorStop(1,'rgba(110,231,183,0.0)');x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*6,0,Math.PI*2);x.fill();x.fillStyle='rgba(138,180,248,0.10)';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill()}requestAnimationFrame(tick)}
+      addEventListener('resize',()=>{size();init()});size();init();tick();})();
+  </script>
 </body>
 </html>
