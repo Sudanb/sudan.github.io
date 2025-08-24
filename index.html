@@ -1,119 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sudan Baral — Field Robotics @ K-State</title>
-  <meta name="color-scheme" content="dark light" />
-  <style>
-    :root{--bg:#0b0c10;--panel:#111317;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);--text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7;--link:#8ab4f8}
-    html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;background:var(--bg);color:var(--text);overflow-x:hidden;opacity:0;transition:opacity .35s ease}
-    body.page-in{opacity:1}
-    body.page-out{opacity:0}
-
-    /* ambient dark floating glow */
-    body::before{content:"";position:fixed;inset:-20vmax;z-index:0;background:
-      radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.12), transparent 60%),
-      radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.10), transparent 60%),
-      radial-gradient(80vmax 80vmax at 50% 120%, rgba(255,255,255,.06), transparent 60%);
-      filter:blur(20px);animation:drift 60s ease-in-out infinite alternate}
-    @keyframes drift{to{transform:translate3d(2vw,-1vh,0) rotate(.5deg)}}
-
-    #bg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.6}
-    header,footer{position:relative;z-index:3;padding:16px}
-    .container{max-width:1000px;margin:0 auto;padding:20px;position:relative;z-index:2}
-
-    nav{margin:12px 0;text-align:center;position:sticky;top:0;z-index:4;background:rgba(17,19,23,.7);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
-    .btn{display:inline-block;padding:10px 14px;margin:6px;border-radius:10px;border:1px solid var(--border);text-decoration:none;font-weight:700}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),color-mix(in oklab,var(--brand) 60%,transparent));color:#0b0c10;border-color:transparent}
-    .btn.secondary{background:rgba(255,255,255,.06);color:var(--text)}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    .muted{color:var(--muted)}
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      body{transition:none !important; opacity:1 !important}
-      body::before{animation:none}
-      #bg{display:none}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sudan Baral — Field Robotics @ K-State</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root{--bg:#0b0c10;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);
+        --text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7}
+  html,body{height:100%}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;
+       background:var(--bg);color:var(--text);overflow-x:hidden;opacity:0;transition:opacity .15s ease}
+  body.page-in{opacity:1} body.page-out{opacity:0}
+  /* ambient glows */
+  body::before{content:"";position:fixed;inset:-20vmax;z-index:0;
+    background:
+      radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.10), transparent 60%),
+      radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.08), transparent 60%),
+      radial-gradient(80vmax 80vmax at 50% 120%, rgba(255,255,255,.05), transparent 60%);
+    filter:blur(18px);animation:drift 50s ease-in-out infinite alternate}
+  @keyframes drift{to{transform:translate3d(1.5vw,-1vh,0) rotate(.25deg)}}
+  /* stars layer */
+  #bg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.6}
+  header,footer{position:relative;z-index:3;padding:16px}
+  .container{max-width:1000px;margin:0 auto;padding:20px;position:relative;z-index:2}
+  nav{margin:12px 0;text-align:center;position:sticky;top:0;z-index:4;background:rgba(17,19,23,.6);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  .btn{display:inline-block;padding:10px 14px;margin:6px;border-radius:10px;border:1px solid var(--border);text-decoration:none;font-weight:700}
+  .btn.primary{background:linear-gradient(135deg,var(--brand),color-mix(in oklab,var(--brand) 60%,transparent));color:#0b0c10;border-color:transparent}
+  .btn.secondary{background:rgba(255,255,255,.06);color:#e6eaf0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .muted{color:var(--muted)}
+  @media (prefers-reduced-motion: reduce){ body{transition:none !important;opacity:1 !important} body::before{animation:none} #bg{display:none} }
+</style>
 </head>
 <body>
-  <canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="bg" aria-hidden="true"></canvas>
 
-  <header class="container">
-    <h1>Sudan Baral</h1>
-    <p>Email: <a href="mailto:sudanb@ksu.edu">sudanb@ksu.edu</a> ·
-       LinkedIn: <a href="https://www.linkedin.com/in/sudan-baral-720019179">linkedin.com/in/sudan-baral-720019179</a> ·
-       GitHub: <a href="https://github.com/sudan">github.com/sudan</a></p>
-  </header>
+<header class="container">
+  <h1>Sudan Baral</h1>
+  <p>Email: <a href="mailto:sudanb@ksu.edu">sudanb@ksu.edu</a> ·
+     LinkedIn: <a href="https://www.linkedin.com/in/sudan-baral-720019179">linkedin.com/in/sudan-baral-720019179</a> ·
+     GitHub: <a href="https://github.com/sudan">github.com/sudan</a></p>
+</header>
 
-  <nav>
-    <a class="btn primary" href="index.html">About Me</a>
-    <a class="btn secondary x-nav" href="projects.html">Projects & Research</a>
-    <a class="btn secondary x-nav" href="cv.html">CV</a>
-    <a class="btn secondary x-nav" href="contact.html">Contact</a>
-  </nav>
+<nav>
+  <a class="btn primary" href="index.html">About Me</a>
+  <a class="btn secondary x-nav" href="projects.html">Projects & Research</a>
+  <a class="btn secondary x-nav" href="cv.html">CV</a>
+  <a class="btn secondary x-nav" href="contact.html">Contact</a>
+</nav>
 
-  <main class="container">
-    <section class="card">
-      <h2>About Me</h2>
-      <p>I am a PhD student in Biological & Agricultural Engineering at Kansas State University, advised by Dr. Ajay Sharda. My work focuses on field robotics for agriculture—under‑canopy autonomy, perception & controls—and validating stacks with ROS2 and Isaac Sim.</p>
-      <h3>Education</h3>
-      <p><strong>Kansas State University</strong> — PhD, Biological & Agricultural Engineering, Field Robotics (2025–Present)<br>
-         <span class="muted">Focus: Under‑canopy autonomy, ROS2/Isaac Sim, perception & controls.</span></p>
-      <p><strong>Kathmandu University</strong> — BE, Mechanical Engineering (2018–2022)</p>
+<main class="container">
+  <section class="card">
+    <h2>About Me</h2>
+    <p>I am a PhD student in Biological & Agricultural Engineering at Kansas State University, advised by Dr. Ajay Sharda. My work focuses on field robotics for agriculture—under‑canopy autonomy, perception & controls—and validating stacks with ROS2 and Isaac Sim.</p>
+    <h3>Education</h3>
+    <p><strong>Kansas State University</strong> — PhD, Biological & Agricultural Engineering, Field Robotics (2025–Present)<br>
+       <span class="muted">Focus: Under‑canopy autonomy, ROS2/Isaac Sim, perception & controls.</span></p>
+    <p><strong>Kathmandu University</strong> — BE, Mechanical Engineering (2018–2022)</p>
 
-      <h3>Research Interests</h3>
-      <ul>
-        <li>Field robotics and autonomous systems</li>
-        <li>ROS2, Isaac Sim, and computer vision for agriculture</li>
-        <li>Additive manufacturing and mechanical metamaterials</li>
-        <li>Precision farming</li>
-      </ul>
-    </section>
-  </main>
+    <h3>Research Interests</h3>
+    <ul>
+      <li>Field robotics and autonomous systems</li>
+      <li>ROS2, Isaac Sim, and computer vision for agriculture</li>
+      <li>Additive manufacturing and mechanical metamaterials</li>
+      <li>Precision farming</li>
+    </ul>
+  </section>
+</main>
 
-  <footer class="container">
-    <p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p>
-  </footer>
+<footer class="container"><p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p></footer>
 
-  <script>
-    // Smooth cross-page transitions
-    (function(){
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(!reduce){
-        document.addEventListener('DOMContentLoaded', ()=> document.body.classList.add('page-in'));
-        document.querySelectorAll('a.x-nav').forEach(a=>{
-          a.addEventListener('click', (e)=>{
-            e.preventDefault();
-            const href = a.getAttribute('href');
-            document.body.classList.remove('page-in');
-            document.body.classList.add('page-out');
-            setTimeout(()=>{ window.location.href = href; }, 250);
-          }, {passive:false});
-        });
-      }else{
-        document.body.classList.add('page-in');
+<script>
+  // faster cross-page fade
+  (function(){
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduce){
+      document.addEventListener('DOMContentLoaded', ()=> document.body.classList.add('page-in'));
+      document.querySelectorAll('a.x-nav').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault(); const href=a.getAttribute('href');
+          document.body.classList.remove('page-in'); document.body.classList.add('page-out');
+          setTimeout(()=> location.href=href, 150);
+        }, {passive:false});
+      });
+    }else{ document.body.classList.add('page-in'); }
+  })();
+
+  // stars + soft orbs background
+  (function(){
+    const c=document.getElementById('bg'); if(!c) return; const x=c.getContext('2d');
+    let w,h,dpr=Math.min(devicePixelRatio||1,2),stars=[],orbs=[];
+    function size(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+    function R(a,b){return a+Math.random()*(b-a)}
+    function init(){
+      stars=[]; orbs=[];
+      for(let i=0;i<140;i++) stars.push({x:R(0,w),y:R(0,h),r:R(0.3,1.2)*dpr,a:R(0.3,0.8),tw:R(0.001,0.004)*(Math.random()<.5?-1:1)});
+      for(let i=0;i<12;i++)  orbs.push({x:R(0,w),y:R(0,h),r:R(40,110)*dpr,vx:R(-0.03,0.03)*dpr,vy:R(-0.02,0.02)*dpr});
+    }
+    function tick(){
+      x.clearRect(0,0,w,h);
+      // stars twinkle
+      x.fillStyle='rgba(255,255,255,0.9)';
+      for(const s of stars){
+        s.a+=s.tw; if(s.a<0.25||s.a>0.9) s.tw*=-1;
+        x.globalAlpha=s.a; x.beginPath(); x.arc(s.x,s.y,s.r,0,Math.PI*2); x.fill();
       }
-    })();
-
-    // Slow-floating particle background (shared)
-    (function(){
-      const c=document.getElementById('bg'); if(!c) return; const x=c.getContext('2d');
-      let w,h,dpr=Math.min(devicePixelRatio||1,2),P=[];
-      const N=90; function R(a,b){return a+Math.random()*(b-a)}
-      function size(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
-      function init(){P=[];for(let i=0;i<N;i++){P.push({x:R(0,w),y:R(0,h),r:R(.6,2)*dpr,vx:R(-.05,.05)*dpr,vy:R(-.03,.03)*dpr})}}
-      function tick(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';
-        for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
-          const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(110,231,183,0.10)');g.addColorStop(1,'rgba(110,231,183,0.0)');
-          x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*6,0,Math.PI*2);x.fill();
-          x.fillStyle='rgba(138,180,248,0.10)';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill();}
-        requestAnimationFrame(tick)}
-      addEventListener('resize',()=>{size();init()}); size(); init(); tick();
-    })();
-  </script>
+      // orbs
+      x.globalAlpha=1; x.globalCompositeOperation='lighter';
+      for(const o of orbs){
+        o.x+=o.vx; o.y+=o.vy; if(o.x< -50||o.x>w+50) o.vx*=-1; if(o.y< -50||o.y>h+50) o.vy*=-1;
+        const g=x.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);
+        g.addColorStop(0,'rgba(110,231,183,0.05)'); g.addColorStop(1,'rgba(110,231,183,0.0)');
+        x.fillStyle=g; x.beginPath(); x.arc(o.x,o.y,o.r,0,Math.PI*2); x.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    addEventListener('resize',()=>{size();init()}); size(); init(); tick();
+  })();
+</script>
 </body>
 </html>
