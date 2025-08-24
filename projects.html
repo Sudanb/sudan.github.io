@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects & Research — Sudan Baral</title>
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root{--bg:#0b0c10;--panel:#111317;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);
+          --text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7;--link:#8ab4f8;}
+    html,body{height:100%}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;
+         margin:0;color:var(--text);background:var(--bg);overflow-x:hidden}
+    body::before{content:\"\";position:fixed;inset:-20vmax;z-index:0;background:
+      radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.12), transparent 60%),
+      radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.10), transparent 60%),
+      radial-gradient(80vmax 80vmax at 50% 120%, rgba(255,255,255,.06), transparent 60%);
+      filter:blur(20px);animation:drift 60s ease-in-out infinite alternate}
+    @keyframes drift{to{transform:translate3d(2vw,-1vh,0) rotate(.5deg)}}
+    #bg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.6}
+    header,footer{position:relative;z-index:3;padding:16px}
+    .container{max-width:1000px;margin:0 auto;padding:20px;position:relative;z-index:2}
+    nav{margin:12px 0}
+    .btn{display:inline-block;padding:10px 14px;margin:6px;border-radius:10px;border:1px solid var(--border);text-decoration:none;font-weight:700}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),color-mix(in oklab,var(--brand) 60%,transparent));color:#0b0c10;border-color:transparent}
+    .btn.secondary{background:rgba(255,255,255,.06);color:var(--text)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .muted{color:var(--muted)}
+    h1,h2{margin:0 0 8px}
+  </style>
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <header class="container">
+    <nav>
+      <a class="btn secondary" href="index.html">About Me</a>
+      <a class="btn primary" href="projects.html">Projects & Research</a>
+      <a class="btn secondary" href="cv.html">CV</a>
+      <a class="btn secondary" href="contact.html">Contact</a>
+    </nav>
+    <h1>Projects & Research</h1>
+    <p class="muted">Selected projects with short descriptions and core tech.</p>
+  </header>
+  <main class="container">
+    <section class="card">
+      <h2>Autonomous Skid‑Steer Robot for Under‑Canopy Agriculture (2025–Present)</h2>
+      <p>Designed and fabricated a skid‑steer robotic platform for row‑crop environments. Modeled vehicle kinematics in MATLAB and integrated ROS2‑based navigation. Developed perception and controls pipelines with multi‑camera/IMU sensing.</p>
+      <p class="muted">Keywords: ROS2, MATLAB, IMU, computer vision, navigation</p>
+    </section>
+    <section class="card">
+      <h2>Prosthetic Knee via Hybrid Manufacturing (2023–2024)</h2>
+      <p>Evaluated manufacturing modes and materials, performed ISO 10328 loading simulations, and conducted static/fatigue testing of prototypes.</p>
+      <p class="muted">Keywords: SolidWorks, ANSYS, ISO 10328, testing</p>
+    </section>
+    <section class="card">
+      <h2>FSR Embedded Insole for Gait Analysis (2021–2023)</h2>
+      <p>Designed and built an insole with FSR sensors for gait phase detection. Implemented ESP‑32 firmware and ML classifiers (Logistic Regression, Decision Tree, SVM). Presented at KU University Scholar Conference.</p>
+      <p class="muted">Keywords: ESP‑32, ML, classification, biomechanics</p>
+    </section>
+    <section class="card">
+      <h2>Publications</h2>
+      <ol>
+        <li>Multi‑process manufacturing framework for pediatric prosthetic knee joints — <em>Hybrid Advances</em>, 2025. <a href="https://doi.org/10.1016/j.hybadv.2025.100450">doi:10.1016/j.hybadv.2025.100450</a></li>
+        <li>FSR insole for gait phase detection — <em>IOP Conference Series</em>, 2022. <a href="https://doi.org/10.1088/1757-899X/1314/1/012008">doi:10.1088/1757-899X/1314/1/012008</a></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="container"><p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p></footer>
+  <script>
+    (function(){const c=document.getElementById('bg');if(!c)return;const x=c.getContext('2d');let w,h,dpr=Math.min(devicePixelRatio||1,2),P=[];
+    function R(a,b){return a+Math.random()*(b-a)};function S(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+    function I(){P=[];for(let i=0;i<90;i++){P.push({x:R(0,w),y:R(0,h),r:R(.6,2.0)*dpr,vx:R(-.05,.05)*dpr,vy:R(-.03,.03)*dpr})}}
+    function T(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+      const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(110,231,183,0.10)');g.addColorStop(1,'rgba(110,231,183,0.0)');x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*6,0,Math.PI*2);x.fill();
+      x.fillStyle='rgba(138,180,248,0.10)';x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fill();}requestAnimationFrame(T)}
+    addEventListener('resize',()=>{S();I()});S();I();T();})();</script>
+</body>
+</html>
