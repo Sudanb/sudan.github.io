@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous Skid‑Steer Robot — Sudan Baral</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root{--bg:#0b0c10;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);--text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7}
+  html,body{height:100%} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;background:var(--bg);color:var(--text);overflow-x:hidden;opacity:0;transition:opacity .15s ease}
+  body.page-in{opacity:1} body.page-out{opacity:0}
+  body::before{content:"";position:fixed;inset:-20vmax;z-index:0;background:
+    radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.10), transparent 60%),
+    radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.08), transparent 60%),
+    radial-gradient(80vmax 80vmax at 50% 120%, rgba(255,255,255,.05), transparent 60%);
+    filter:blur(18px);animation:drift 50s ease-in-out infinite alternate}
+  @keyframes drift{to{transform:translate3d(1.5vw,-1vh,0) rotate(.25deg)}}
+  #bg{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.6}
+  header,footer{position:relative;z-index:3;padding:16px}
+  .container{max-width:1000px;margin:0 auto;padding:20px;position:relative;z-index:2}
+  nav{margin:12px 0;text-align:center;position:sticky;top:0;z-index:4;background:rgba(17,19,23,.6);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  .btn{display:inline-block;padding:10px 14px;margin:6px;border-radius:10px;border:1px solid var(--border);text-decoration:none;font-weight:700}
+  .btn.secondary{background:rgba(255,255,255,.06);color:#e6eaf0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .muted{color:var(--muted)}
+</style></head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="container">
+  <nav>
+    <a class="btn secondary x-nav" href="projects.html">← Back to Projects</a>
+    <a class="btn secondary x-nav" href="index.html">About</a>
+    <a class="btn secondary x-nav" href="cv.html">CV</a>
+    <a class="btn secondary x-nav" href="contact.html">Contact</a>
+  </nav>
+  <h1>Autonomous Skid‑Steer Robot for Under‑Canopy Agriculture</h1>
+  <p class="muted">2025–Present · Kansas State University — Field Robotics</p>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h2>Overview</h2>
+    <p>Designed and fabricated a skid‑steer UGV optimized for under‑canopy navigation in row‑crop environments. Integrated multi‑sensor perception (stereo/mono cameras, IMU) with ROS2‑based navigation and custom controllers.</p>
+  </section>
+  <section class="card">
+    <h2>Technical Highlights</h2>
+    <ul>
+      <li>Vehicle kinematics modeling (MATLAB) + trajectory tracking control</li>
+      <li>ROS2 nodes for sensor fusion, localization, and path following</li>
+      <li>Under‑canopy‑aware perception with camera‑IMU pipelines</li>
+      <li>Simulation workflows with Isaac Sim for validation</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="container"><p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p></footer>
+
+<script>
+  (function(){const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!reduce){document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('page-in'));document.querySelectorAll('a.x-nav').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const href=a.getAttribute('href');document.body.classList.remove('page-in');document.body.classList.add('page-out');setTimeout(()=>location.href=href,150)},{passive:false}));}else{document.body.classList.add('page-in');}})();
+  (function(){const c=document.getElementById('bg');if(!c)return;const x=c.getContext('2d');let w,h,dpr=Math.min(devicePixelRatio||1,2),S=[],O=[];
+    function size(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
+    function R(a,b){return a+Math.random()*(b-a)} function init(){S=[];O=[];for(let i=0;i<140;i++)S.push({x:R(0,w),y:R(0,h),r:R(.3,1.2)*dpr,a:R(.3,.8),tw:R(.001,.004)*(Math.random()<.5?-1:1)});for(let i=0;i<12;i++)O.push({x:R(0,w),y:R(0,h),r:R(40,110)*dpr,vx:R(-.03,.03)*dpr,vy:R(-.02,.02)*dpr})}
+    function tick(){x.clearRect(0,0,w,h);x.fillStyle='rgba(255,255,255,.9)';for(const s of S){s.a+=s.tw;if(s.a<.25||s.a>.9)s.tw*=-1;x.globalAlpha=s.a;x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fill()}x.globalAlpha=1;x.globalCompositeOperation='lighter';for(const o of O){o.x+=o.vx;o.y+=o.vy;if(o.x<-50||o.x>w+50)o.vx*=-1;if(o.y<-50||o.y>h+50)o.vy*=-1;const g=x.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);g.addColorStop(0,'rgba(110,231,183,0.05)');g.addColorStop(1,'rgba(110,231,183,0)');x.fillStyle=g;x.beginPath();x.arc(o.x,o.y,o.r,0,Math.PI*2);x.fill()}requestAnimationFrame(tick)}
+    addEventListener('resize',()=>{size();init()}); size(); init(); tick();})();
+</script>
+</body>
+</html>
