@@ -8,7 +8,8 @@
   <style>
     :root{--bg:#0b0c10;--panel:#111317;--card:rgba(17,19,23,.6);--border:rgba(255,255,255,.08);--text:#e6eaf0;--muted:#9aa0a6;--brand:#6ee7b7;--link:#8ab4f8}
     html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;background:var(--bg);color:var(--text);overflow-x:hidden}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;background:var(--bg);color:var(--text);overflow-x:hidden;opacity:0;transition:opacity .35s ease}
+    body.page-in{opacity:1} body.page-out{opacity:0}
     body::before{content:"";position:fixed;inset:-20vmax;z-index:0;background:
       radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.12), transparent 60%),
       radial-gradient(70vmax 70vmax at 90% 10%, rgba(138,180,248,.10), transparent 60%),
@@ -24,6 +25,7 @@
     .btn.secondary{background:rgba(255,255,255,.06);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin:20px 0;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
     .muted{color:var(--muted)}
+    @media (prefers-reduced-motion: reduce){ body{transition:none !important; opacity:1 !important} body::before{animation:none} #bg{display:none} }
   </style>
 </head>
 <body>
@@ -31,9 +33,9 @@
 
   <header class="container">
     <nav>
-      <a class="btn secondary" href="index.html">About Me</a>
-      <a class="btn secondary" href="projects.html">Projects & Research</a>
-      <a class="btn secondary" href="cv.html">CV</a>
+      <a class="btn secondary x-nav" href="index.html">About Me</a>
+      <a class="btn secondary x-nav" href="projects.html">Projects & Research</a>
+      <a class="btn secondary x-nav" href="cv.html">CV</a>
       <a class="btn primary" href="contact.html">Contact</a>
     </nav>
     <h1>Contact</h1>
@@ -48,11 +50,23 @@
     </section>
   </main>
 
-  <footer class="container">
-    <p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p>
-  </footer>
+  <footer class="container"><p>© <script>document.write(new Date().getFullYear())</script> Sudan Baral</p></footer>
 
   <script>
+    (function(){
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduce){
+        document.addEventListener('DOMContentLoaded', ()=> document.body.classList.add('page-in'));
+        document.querySelectorAll('a.x-nav').forEach(a=>{
+          a.addEventListener('click', (e)=>{
+            e.preventDefault(); const href=a.getAttribute('href');
+            document.body.classList.remove('page-in'); document.body.classList.add('page-out');
+            setTimeout(()=> location.href=href, 250);
+          }, {passive:false});
+        });
+      }else{ document.body.classList.add('page-in'); }
+    })();
+
     (function(){const c=document.getElementById('bg');if(!c)return;const x=c.getContext('2d');let w,h,dpr=Math.min(devicePixelRatio||1,2),P=[];
       const N=90;function R(a,b){return a+Math.random()*(b-a)}function size(){w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px'}
       function init(){P=[];for(let i=0;i<N;i++){P.push({x:R(0,w),y:R(0,h),r:R(.6,2)*dpr,vx:R(-.05,.05)*dpr,vy:R(-.03,.03)*dpr})}}function tick(){x.clearRect(0,0,w,h);x.globalCompositeOperation='lighter';
