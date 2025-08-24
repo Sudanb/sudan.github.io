@@ -17,6 +17,7 @@
   html,body{height:100%}
   body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
        margin:0; padding:0; color:var(--text); background: var(--bg); overflow-x:hidden;}
+  /* soft animated glow */
   body::before{content:""; position:fixed; inset:-20vmax; z-index:0;
     background:
       radial-gradient(60vmax 60vmax at 10% 20%, rgba(110,231,183,.12), transparent 60%),
@@ -35,7 +36,7 @@
   .card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin:20px 0; backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0,0,0,.35)}
   .muted{color:var(--muted)}
   #bg{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.6}
-  nav{margin:20px 0; text-align:center;}
+  nav{margin:20px 0; text-align:center; position:sticky; top:0; z-index:4;}
   nav .btn{margin:8px;}
   section{display:none;}
   section.active{display:block;}
@@ -55,10 +56,10 @@
   </header>
 
   <nav>
-    <button class="btn primary" onclick="showSection('about')">About Me</button>
-    <button class="btn secondary" onclick="showSection('projects')">Projects & Research</button>
-    <button class="btn secondary" onclick="showSection('cv')">CV</button>
-    <button class="btn secondary" onclick="showSection('contact')">Contact</button>
+    <button class="btn primary tab-btn" data-target="about">About Me</button>
+    <button class="btn secondary tab-btn" data-target="projects">Projects & Research</button>
+    <button class="btn secondary tab-btn" data-target="cv">CV</button>
+    <button class="btn secondary tab-btn" data-target="contact">Contact</button>
   </nav>
 
   <main class="container">
@@ -113,10 +114,34 @@
   </footer>
 
   <script>
-    function showSection(id){
-      document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    // Tabs toggle logic with hash support
+    const buttons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('main section');
+
+    function activateTab(id){
+      sections.forEach(sec => sec.classList.remove('active'));
+      const target = document.getElementById(id) || document.getElementById('about');
+      target.classList.add('active');
+
+      buttons.forEach(btn => {
+        const on = btn.dataset.target === id;
+        btn.classList.toggle('primary', on);
+        btn.classList.toggle('secondary', !on);
+      });
+      // update URL hash without jumping
+      if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
     }
+
+    buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.target)));
+
+    // init with hash or default
+    const initial = (location.hash || '#about').slice(1);
+    activateTab(initial);
+
+    window.addEventListener('hashchange', () => {
+      const id = (location.hash || '#about').slice(1);
+      activateTab(id);
+    });
 
     // Minimal slow-floating particle background
     (function(){
